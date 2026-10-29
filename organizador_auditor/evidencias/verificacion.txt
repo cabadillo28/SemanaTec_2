@@ -1,11 +1,12 @@
 VERIFICACIÓN INDEPENDIENTE: CORRECTA
 ZIP original sin modificaciones; SHA-256: 714a4c22b426b474694234f84fae9c1ab44342a9ff9659f3449a2c96ec9195c3
-198 archivos copiados y comparados byte por byte: 198 correctos
+198 archivos comparados byte por byte: 198 correctos, sin duplicados
 Archivos de contenido: 98; metadatos macOS: 100
 Python analizados: 60; archivos con menciones de PySide6: 28; con imports: 28
-Informe: 60 rutas, 28 positivos y 32 negativos; líneas coincidentes verificadas
-Script ejecutable; solo se busca PySide6, no PyQt ni otras versiones de PySide
-Las 16 pruebas automatizadas pasan, incluida la regresión de la librería buscada
+Python en py/con_pyside6/: 28; Python sin coincidencias fuera de esa subcarpeta: 32
+Informe: 60 ubicaciones finales, 28 positivos y 32 negativos; sin doble conteo
+Líneas coincidentes verificadas y rutas relativas conservadas
+Las 18 pruebas automatizadas pasan, incluidas agrupación y ausencia de coincidencias
 
 Archivos por categoría:
   csv: 6

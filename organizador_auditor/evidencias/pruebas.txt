@@ -12,14 +12,16 @@ test_existing_nonempty_destination_and_repeated_run_are_rejected (test_script.Sc
 test_extensions_metadata_and_exact_audit_lines (test_script.ScriptTests.test_extensions_metadata_and_exact_audit_lines) ... ok
 test_file_or_symlink_destination_is_rejected (test_script.ScriptTests.test_file_or_symlink_destination_is_rejected) ... ok
 test_grep_error_is_not_reported_as_no_match (test_script.ScriptTests.test_grep_error_is_not_reported_as_no_match) ... ok
+test_matching_python_files_are_grouped_without_duplicates (test_script.ScriptTests.test_matching_python_files_are_grouped_without_duplicates) ... ok
 test_missing_corrupt_wrong_extension_and_empty_destination (test_script.ScriptTests.test_missing_corrupt_wrong_extension_and_empty_destination) ... ok
 test_only_pyside6_is_counted_not_other_qt_libraries (test_script.ScriptTests.test_only_pyside6_is_counted_not_other_qt_libraries) ... ok
+test_python_without_matches_leaves_empty_pyside6_group (test_script.ScriptTests.test_python_without_matches_leaves_empty_pyside6_group) ... ok
 test_relative_paths_starting_with_dash_and_uppercase_zip (test_script.ScriptTests.test_relative_paths_starting_with_dash_and_uppercase_zip) ... ok
 test_symlinks_in_zip_are_rejected (test_script.ScriptTests.test_symlinks_in_zip_are_rejected) ... ok
 test_unsafe_paths_are_rejected (test_script.ScriptTests.test_unsafe_paths_are_rejected) ... ok
 test_zip_without_python (test_script.ScriptTests.test_zip_without_python) ... ok
 
 ----------------------------------------------------------------------
-Ran 16 tests in 0.468s
+Ran 18 tests in 0.454s
 
 OK

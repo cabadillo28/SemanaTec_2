@@ -75,7 +75,7 @@ class ScriptTests(unittest.TestCase):
         ]
         self.create_zip(entries)
         output = self.run_ok()
-        self.assertTrue((self.dest / 'py/src/main.py').is_file())
+        self.assertTrue((self.dest / 'py/con_pyside6/src/main.py').is_file())
         self.assertTrue((self.dest / 'py/src/OTHER.PY').is_file())
         self.assertTrue((self.dest / 'json/.config.json').is_file())
         for name in ('README', '.env', 'final.'):
@@ -127,9 +127,44 @@ class ScriptTests(unittest.TestCase):
     def test_equal_filenames_keep_relative_paths(self):
         self.create_zip([('uno/a.py', 'import PySide6\n'), ('dos/a.py', 'print(1)\n')])
         output = self.run_ok()
-        self.assertEqual((self.dest / 'py/uno/a.py').read_text(), 'import PySide6\n')
+        self.assertEqual((self.dest / 'py/con_pyside6/uno/a.py').read_text(), 'import PySide6\n')
         self.assertEqual((self.dest / 'py/dos/a.py').read_text(), 'print(1)\n')
         self.assertIn('Archivos .py analizados: 2\n', output)
+
+    def test_matching_python_files_are_grouped_without_duplicates(self):
+        entries = [
+            ('uno/a.py', 'from PySide6.QtWidgets import QWidget\n'),
+            ('dos/a.PY', '# pyside6 en un comentario\n'),
+            ('sin.py', 'from PyQt6.QtWidgets import QWidget\n'),
+            ('docs/datos.txt', 'PySide6 no es código Python'),
+            ('__MACOSX/._a.py', 'import PySide6\n'),
+        ]
+        self.create_zip(entries)
+        output = self.run_ok()
+        group = self.dest / 'py/con_pyside6'
+        self.assertEqual({p.relative_to(group).as_posix() for p in group.rglob('*')
+                          if p.is_file()}, {'uno/a.py', 'dos/a.PY'})
+        for name in ('uno/a.py', 'dos/a.PY'):
+            self.assertFalse((self.dest / 'py' / name).exists())
+            self.assertEqual(output.count('Archivo: ' + str(group / name) + '\n'), 1)
+        self.assertTrue((self.dest / 'py/sin.py').is_file())
+        self.assertTrue((self.dest / 'txt/docs/datos.txt').is_file())
+        self.assertTrue((self.dest / 'metadatos_macos/__MACOSX/._a.py').is_file())
+        self.assertEqual(len([p for p in self.dest.rglob('*') if p.is_file()]), len(entries))
+        self.assertIn('Archivos .py analizados: 3\n', output)
+        self.assertIn('Archivos con menciones de PySide6: 2\n', output)
+        self.assertIn('Archivos con importaciones de PySide6 detectadas: 1\n', output)
+
+    def test_python_without_matches_leaves_empty_pyside6_group(self):
+        self.create_zip([('simple.py', 'print(1)\n'), ('otra.py', 'import PySide2\n')])
+        output = self.run_ok()
+        group = self.dest / 'py/con_pyside6'
+        self.assertTrue(group.is_dir())
+        self.assertEqual(list(group.iterdir()), [])
+        self.assertTrue((self.dest / 'py/simple.py').is_file())
+        self.assertTrue((self.dest / 'py/otra.py').is_file())
+        self.assertIn('Archivos .py analizados: 2\n', output)
+        self.assertIn('Archivos con menciones de PySide6: 0\n', output)
 
     def test_existing_nonempty_destination_and_repeated_run_are_rejected(self):
         self.create_zip([('a.txt', 'nuevo')])
@@ -200,7 +235,7 @@ class ScriptTests(unittest.TestCase):
         self.archive.rename(archive)
         result = self.run_script('-entrada.ZIP', '-salida')
         self.assertEqual(result.returncode, 0, result.stderr)
-        self.assertTrue((self.root / '-salida/py/-codigo.PY').is_file())
+        self.assertTrue((self.root / '-salida/py/con_pyside6/-codigo.PY').is_file())
 
     def test_grep_error_is_not_reported_as_no_match(self):
         self.create_zip([('main.py', 'import PySide6\n')])
