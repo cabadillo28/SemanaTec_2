@@ -1,0 +1,1 @@
+en la carpeta de pythons haga una subcarpeta de los archvios que contienen pyside, y haz commit con ese cambio y push

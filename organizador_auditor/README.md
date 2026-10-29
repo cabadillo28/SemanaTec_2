@@ -33,16 +33,18 @@ set -o pipefail
 1. Valida los argumentos, la entrada, las dependencias y el destino.
 2. Revisa el índice y la integridad del ZIP; rechaza rutas con `..`, rutas absolutas y enlaces simbólicos.
 3. Descomprime con `unzip` en un temporal creado con `mktemp -d`; `trap` lo elimina al salir.
-4. Usa `find -print0` para copiar los archivos a carpetas por su última extensión, normalizada a minúsculas. Conserva la ruta relativa para evitar colisiones.
+4. Usa `find -print0` para copiar los archivos a carpetas por su última extensión, normalizada a minúsculas. Los Python con menciones de PySide6 se guardan exclusivamente en `py/con_pyside6/`; los demás permanecen en `py/`. Conserva las rutas relativas y no duplica archivos.
 5. Separa `__MACOSX`, `.DS_Store` y nombres `._*` bajo `metadatos_macos/`, sin contarlos como Python real.
-6. Revisa solo `py/` con `grep -n -i -E`. Por cada archivo indica si hay PySide6 y muestra las líneas exactas y su número. También distingue las líneas de importación detectadas.
+6. Revisa recursivamente `py/`, incluida `con_pyside6/`, con `grep -n -i -E`. Por cada archivo indica su ubicación final, si hay PySide6 y las líneas exactas y su número. También distingue las líneas de importación detectadas. Cada Python se analiza una sola vez en esta auditoría.
 7. Imprime el resumen contando archivos, no coincidencias. No modifica el ZIP original ni sobrescribe resultados anteriores.
 
 Ejemplo de organización:
 
 ```text
 resultados/
-├── py/proyecto_analisis/...
+├── py/
+│   ├── con_pyside6/proyecto_analisis/...  (28 Python con PySide6)
+│   └── proyecto_analisis/...              (32 Python sin PySide6)
 ├── csv/proyecto_analisis/...
 ├── jpg/proyecto_analisis/...
 ├── png/proyecto_analisis/...
@@ -50,6 +52,8 @@ resultados/
 ├── sin_extension/proyecto_analisis/...
 └── metadatos_macos/...
 ```
+
+La subcarpeta `py/con_pyside6/` se crea cuando hay archivos Python, incluso si no hay coincidencias y queda vacía. Incluye menciones en comentarios y cadenas, no solo imports; los metadatos Mac y otros tipos de archivo no se incluyen.
 
 ## Resultado con el archivo del profesor
 
@@ -62,6 +66,8 @@ Entrada: `~/Downloads/proyecto_analisis.zip`.
 | Archivos Python analizados | 60 |
 | Archivos con menciones de PySide6 | 28 |
 | Archivos con líneas de importación de PySide6 detectadas | 28 |
+| Python agrupados en `py/con_pyside6/` | 28 |
+| Python sin coincidencias, fuera de esa subcarpeta | 32 |
 
 - `QT_ex0.py`: importa `PySide6` en las líneas **2, 3 y 5**.
 - `QT_interface_example.py`: importa `PySide6` en las líneas **45 y 51**; la línea **46** es una importación comentada y solo se cuenta como mención.
@@ -74,7 +80,7 @@ Informe completo: [`evidencias/informe_auditoria.txt`](evidencias/informe_audito
 
 ## Prompts cortos
 
-Los dos primeros prompts se conservan literalmente como historial: nombraban PyQt por una confusión inicial. La tercera instrucción corrige el objetivo a **PySide6**, que es la librería buscada en la versión actual.
+Los dos primeros prompts se conservan literalmente como historial: nombraban PyQt por una confusión inicial. La tercera instrucción corrige el objetivo a **PySide6**, que es la librería buscada en la versión actual. La cuarta pide agrupar los archivos con coincidencias en una subcarpeta.
 
 Primera generación, enviada a un agente de IA en esta sesión ([texto exacto](prompts/01_generacion.txt)):
 
@@ -92,6 +98,10 @@ Corrección posterior del usuario ([texto exacto](prompts/03_correccion_pyside6.
 
 Se corrigieron los patrones y mensajes a PySide6, se añadió una prueba para excluir PyQt/PySide2 y nombres similares, y se repitió la auditoría del ZIP. Los resultados anteriores de 2 menciones de PyQt y 1 importación ya no describen la búsqueda actual: ahora se detectan **28 archivos con PySide6**.
 
+Nueva organización solicitada por el usuario ([texto exacto](prompts/04_subcarpeta_pyside6.txt)):
+
+> en la carpeta de pythons haga una subcarpeta de los archvios que contienen pyside, y haz commit con ese cambio y push
+
 ## Pruebas
 
 Python 3 se usa **solo para las pruebas**, que crean ZIP sintéticos. No es una dependencia de `script.sh`.
@@ -101,7 +111,7 @@ bash -n script.sh
 PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s tests -v
 ```
 
-Las 16 pruebas cubren argumentos, ZIP inválido o corrupto, rutas con espacios, extensiones en mayúsculas, nombres especiales, metadatos Mac, colisiones, destinos existentes, limpieza de temporales, errores de `grep`, comentarios, imports y ausencia de Python. Incluyen una regresión que exige detectar solo PySide6, excluyendo PyQt, PySide2, PySide60 y nombres similares, aunque el nombre del archivo sugiera otra librería.
+Las 18 pruebas cubren argumentos, ZIP inválido o corrupto, rutas con espacios, extensiones en mayúsculas, nombres especiales, metadatos Mac, colisiones, destinos existentes, limpieza de temporales, errores de `grep`, comentarios, imports y ausencia de Python. Incluyen una regresión que exige detectar solo PySide6, excluyendo PyQt, PySide2, PySide60 y nombres similares, aunque el nombre del archivo sugiera otra librería. También comprueban que `py/con_pyside6/` contenga solo los Python con coincidencias, conserve las rutas, no duplique archivos ni conteos y quede vacía cuando no haya coincidencias.
 
 Evidencias: [`pruebas.txt`](evidencias/pruebas.txt) y [`verificacion.txt`](evidencias/verificacion.txt).
 

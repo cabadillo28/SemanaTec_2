@@ -3,7 +3,7 @@ Repositorio creado en semana tec primer semestre bloque 2, El arte de la program
 
 ## Clasificación de archivos y auditoría de PySide6
 
-Práctica de Bash para descomprimir un ZIP, organizar sus archivos por extensión y auditar los archivos Python.
+Práctica de Bash para descomprimir un ZIP, organizar sus archivos por extensión y auditar los archivos Python. Los que contienen PySide6 se agrupan en `py/con_pyside6/`, sin duplicarlos.
 
 - [Instrucciones, resultados y prompts](organizador_auditor/README.md)
 - [Script de Bash](organizador_auditor/script.sh)

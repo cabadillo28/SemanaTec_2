@@ -69,6 +69,7 @@ if (( vacio == 0 )); then
 fi
 
 # 3. Copiar por extensión conservando las rutas para evitar colisiones.
+patron_mencion='(^|[^[:alnum:]_])PySide6([^[:alnum:]_]|$)'
 mkdir -p -- "$destino" || fallar 'No se pudo crear el destino.'
 destino=$(cd -- "$destino" && pwd -P)
 find "$temporal/extraido" -type f -print0 | sort -z >"$temporal/archivos"
@@ -92,15 +93,24 @@ while IFS= read -r -d '' origen; do
             organizados=$((organizados + 1))
             ;;
     esac
+    # Los Python con menciones van a su subcarpeta, sin dejar copias duplicadas.
+    if [[ "$categoria" == py ]]; then
+        mkdir -p -- "$destino/py/con_pyside6"
+        if grep -q -a -i -E -- "$patron_mencion" "$origen"; then
+            categoria=py/con_pyside6
+        else
+            estado=$?
+            [[ $estado -eq 1 ]] || fallar "No se pudo analizar: $origen"
+        fi
+    fi
     salida="$destino/$categoria/$relativo"
     mkdir -p -- "${salida%/*}"
     [[ ! -e "$salida" && ! -L "$salida" ]] || fallar "El archivo de salida ya existe: $salida"
     cp -- "$origen" "$salida"
 done <"$temporal/archivos"
 
-# 4. Auditar únicamente py/. Metadatos de Mac nunca entran a esta categoría.
+# 4. Auditar py/ y su subcarpeta con_pyside6/ una sola vez por archivo.
 # Es una búsqueda de texto, no ejecuta Python ni demuestra uso en tiempo real.
-patron_mencion='(^|[^[:alnum:]_])PySide6([^[:alnum:]_]|$)'
 patron_import='^[[:space:]]*(from[[:space:]]+PySide6[.[:space:]]|import[[:space:]]+([^#;]*,[[:space:]]*)?PySide6([.[:space:],;]|$))'
 : >"$temporal/python"
 if [[ -d "$destino/py" ]]; then
@@ -145,3 +155,6 @@ printf 'Metadatos macOS separados: %d\n' "$metadatos"
 printf 'Archivos .py analizados: %d\n' "$analizados"
 printf 'Archivos con menciones de PySide6: %d\n' "$con_menciones"
 printf 'Archivos con importaciones de PySide6 detectadas: %d\n' "$con_importaciones"
+if [[ -d "$destino/py" ]]; then
+    printf 'Subcarpeta de archivos con PySide6: %s\n' "$destino/py/con_pyside6"
+fi
