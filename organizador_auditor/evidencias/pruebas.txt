@@ -1,0 +1,24 @@
+$ bash -n script.sh
+Sintaxis Bash: correcta
+
+$ PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s tests -v
+test_case_insensitive_boundaries_and_comment_vs_import (test_script.ScriptTests.test_case_insensitive_boundaries_and_comment_vs_import) ... ok
+test_crc_failure_is_rejected (test_script.ScriptTests.test_crc_failure_is_rejected) ... ok
+test_empty_zip (test_script.ScriptTests.test_empty_zip) ... ok
+test_equal_filenames_keep_relative_paths (test_script.ScriptTests.test_equal_filenames_keep_relative_paths) ... ok
+test_exact_argument_validation (test_script.ScriptTests.test_exact_argument_validation) ... ok
+test_existing_empty_destination_is_accepted (test_script.ScriptTests.test_existing_empty_destination_is_accepted) ... ok
+test_existing_nonempty_destination_and_repeated_run_are_rejected (test_script.ScriptTests.test_existing_nonempty_destination_and_repeated_run_are_rejected) ... ok
+test_extensions_metadata_and_exact_audit_lines (test_script.ScriptTests.test_extensions_metadata_and_exact_audit_lines) ... ok
+test_file_or_symlink_destination_is_rejected (test_script.ScriptTests.test_file_or_symlink_destination_is_rejected) ... ok
+test_grep_error_is_not_reported_as_no_match (test_script.ScriptTests.test_grep_error_is_not_reported_as_no_match) ... ok
+test_missing_corrupt_wrong_extension_and_empty_destination (test_script.ScriptTests.test_missing_corrupt_wrong_extension_and_empty_destination) ... ok
+test_relative_paths_starting_with_dash_and_uppercase_zip (test_script.ScriptTests.test_relative_paths_starting_with_dash_and_uppercase_zip) ... ok
+test_symlinks_in_zip_are_rejected (test_script.ScriptTests.test_symlinks_in_zip_are_rejected) ... ok
+test_unsafe_paths_are_rejected (test_script.ScriptTests.test_unsafe_paths_are_rejected) ... ok
+test_zip_without_python (test_script.ScriptTests.test_zip_without_python) ... ok
+
+----------------------------------------------------------------------
+Ran 15 tests in 0.392s
+
+OK

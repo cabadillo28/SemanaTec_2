@@ -1,0 +1,1 @@
+Usa unzip para descomprimir y deja todo el script en Bash. Muestra también los .py sin PyQt, distingue comentarios de imports y conserva las rutas. Revisa que el mensaje de uso sea correcto y que no se sobrescriban archivos.
