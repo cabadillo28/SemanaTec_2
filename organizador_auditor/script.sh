@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Clasificación por extensión y auditoría estática de PyQt. Requiere Bash 4+.
+# Clasificación por extensión y auditoría estática de PySide6. Requiere Bash 4+.
 set -euo pipefail
 export LC_ALL=C
 
@@ -100,8 +100,8 @@ done <"$temporal/archivos"
 
 # 4. Auditar únicamente py/. Metadatos de Mac nunca entran a esta categoría.
 # Es una búsqueda de texto, no ejecuta Python ni demuestra uso en tiempo real.
-patron_mencion='(^|[^[:alnum:]_])PyQt[0-9]*([^[:alnum:]_]|$)'
-patron_import='^[[:space:]]*(from[[:space:]]+PyQt[0-9]*[.[:space:]]|import[[:space:]]+([^#;]*,[[:space:]]*)?PyQt[0-9]*([.[:space:],;]|$))'
+patron_mencion='(^|[^[:alnum:]_])PySide6([^[:alnum:]_]|$)'
+patron_import='^[[:space:]]*(from[[:space:]]+PySide6[.[:space:]]|import[[:space:]]+([^#;]*,[[:space:]]*)?PySide6([.[:space:],;]|$))'
 : >"$temporal/python"
 if [[ -d "$destino/py" ]]; then
     find "$destino/py" -type f -print0 | sort -z >"$temporal/python"
@@ -109,13 +109,13 @@ fi
 analizados=0
 con_menciones=0
 con_importaciones=0
-printf '\nAUDITORÍA DE PYQT\n'
+printf '\nAUDITORÍA DE PYSIDE6\n'
 while IFS= read -r -d '' archivo_py; do
     analizados=$((analizados + 1))
     printf '\nArchivo: %s\n' "$archivo_py"
     if grep -n -a -i -E -- "$patron_mencion" "$archivo_py" >"$temporal/menciones"; then
         con_menciones=$((con_menciones + 1))
-        printf 'Contiene PyQt: sí\nCoincidencias (línea:texto):\n'
+        printf 'Contiene PySide6: sí\nCoincidencias (línea:texto):\n'
         # Imprimir sin modificar el texto encontrado por grep -n.
         while IFS= read -r linea || [[ -n "$linea" ]]; do
             printf '%s\n' "$linea"
@@ -123,18 +123,18 @@ while IFS= read -r -d '' archivo_py; do
     else
         estado=$?
         [[ $estado -eq 1 ]] || fallar "No se pudo analizar: $archivo_py"
-        printf 'Contiene PyQt: no\n'
+        printf 'Contiene PySide6: no\n'
     fi
     if grep -n -a -i -E -- "$patron_import" "$archivo_py" >"$temporal/importaciones"; then
         con_importaciones=$((con_importaciones + 1))
-        printf 'Líneas de importación de PyQt detectadas (heurística):\n'
+        printf 'Líneas de importación de PySide6 detectadas (heurística):\n'
         while IFS= read -r linea || [[ -n "$linea" ]]; do
             printf '%s\n' "$linea"
         done <"$temporal/importaciones"
     else
         estado=$?
         [[ $estado -eq 1 ]] || fallar "No se pudieron revisar las importaciones: $archivo_py"
-        printf 'No se detectaron importaciones de PyQt.\n'
+        printf 'No se detectaron importaciones de PySide6.\n'
     fi
 done <"$temporal/python"
 
@@ -143,5 +143,5 @@ printf '\nRESUMEN FINAL\nDestino: %s\n' "$destino"
 printf 'Archivos de contenido organizados: %d\n' "$organizados"
 printf 'Metadatos macOS separados: %d\n' "$metadatos"
 printf 'Archivos .py analizados: %d\n' "$analizados"
-printf 'Archivos con menciones de PyQt: %d\n' "$con_menciones"
-printf 'Archivos con importaciones de PyQt detectadas: %d\n' "$con_importaciones"
+printf 'Archivos con menciones de PySide6: %d\n' "$con_menciones"
+printf 'Archivos con importaciones de PySide6 detectadas: %d\n' "$con_importaciones"

@@ -64,12 +64,12 @@ class ScriptTests(unittest.TestCase):
 
     def test_extensions_metadata_and_exact_audit_lines(self):
         entries = [
-            ('src/main.py', 'from PyQt6.QtWidgets import QWidget\nprint("PyQt5")\n'),
+            ('src/main.py', 'from PySide6.QtWidgets import QWidget\nprint("PySide6")\n'),
             ('src/OTHER.PY', 'print("no")\n'),
             ('docs/a.TXT', 'texto'), ('README', 'sin extensión'),
             ('.env', 'oculto'), ('.config.json', '{}'), ('final.', 'sin extensión'),
             ('linea\nnueva.txt', 'salto'), ('-opcion.txt', 'guion'),
-            ('__MACOSX/src/._main.py', 'PyQt no debe buscarse'),
+            ('__MACOSX/src/._main.py', 'PySide6 no debe buscarse'),
             ('src/.DS_Store', 'metadatos'), ('src/._datos', 'metadatos'),
             ('Images/foto.JPG', b'contenido de prueba'),
         ]
@@ -85,35 +85,49 @@ class ScriptTests(unittest.TestCase):
         self.assertTrue((self.dest / 'jpg/Images/foto.JPG').is_file())
         for name in ('__MACOSX/src/._main.py', 'src/.DS_Store', 'src/._datos'):
             self.assertTrue((self.dest / 'metadatos_macos' / name).is_file())
-        self.assertIn('1:from PyQt6.QtWidgets import QWidget', output)
-        self.assertIn('2:print("PyQt5")', output)
-        self.assertIn('Archivo: ' + str(self.dest / 'py/src/OTHER.PY') + '\nContiene PyQt: no', output)
-        self.assertNotIn('PyQt no debe buscarse', output)
+        self.assertIn('1:from PySide6.QtWidgets import QWidget', output)
+        self.assertIn('2:print("PySide6")', output)
+        self.assertIn('Archivo: ' + str(self.dest / 'py/src/OTHER.PY') + '\nContiene PySide6: no', output)
+        self.assertNotIn('PySide6 no debe buscarse', output)
         self.assertIn('Archivos de contenido organizados: 10\n', output)
         self.assertIn('Metadatos macOS separados: 3\n', output)
         self.assertIn('Archivos .py analizados: 2\n', output)
-        self.assertIn('Archivos con menciones de PyQt: 1\n', output)
-        self.assertIn('Archivos con importaciones de PyQt detectadas: 1\n', output)
+        self.assertIn('Archivos con menciones de PySide6: 1\n', output)
+        self.assertIn('Archivos con importaciones de PySide6 detectadas: 1\n', output)
         self.assertEqual(len([p for p in self.dest.rglob('*') if p.is_file()]), len(entries))
 
     def test_case_insensitive_boundaries_and_comment_vs_import(self):
         self.create_zip([
-            ('comentario.py', '# PyQt en un comentario\n'),
-            ('minusculas.py', 'from pyqt6.QtWidgets import QWidget\n'),
-            ('lista.py', 'import sys, PyQt5.QtCore as qt\n'),
-            ('simple.py', 'import PyQt6\nimport PyQt6.QtGui\n'),
-            ('no.py', 'from PySide6 import QtWidgets\n# PyQR cv2 pyqtgraph MyPyQt6\n'),
+            ('comentario.py', '# PySide6 en un comentario\n'),
+            ('minusculas.py', 'from pyside6.QtWidgets import QWidget\n'),
+            ('lista.py', 'import sys, PySide6.QtCore as qt\n'),
+            ('simple.py', 'import PySide6\nimport PySide6.QtGui\n'),
+            ('no.py', 'from PyQt6 import QtWidgets\n# PyQR cv2 MyPySide6 PySide6_extra\n'),
         ])
         output = self.run_ok()
         self.assertIn('Archivos .py analizados: 5\n', output)
-        self.assertIn('Archivos con menciones de PyQt: 4\n', output)
-        self.assertIn('Archivos con importaciones de PyQt detectadas: 3\n', output)
-        self.assertIn('No se detectaron importaciones de PyQt.', output)
+        self.assertIn('Archivos con menciones de PySide6: 4\n', output)
+        self.assertIn('Archivos con importaciones de PySide6 detectadas: 3\n', output)
+        self.assertIn('No se detectaron importaciones de PySide6.', output)
+
+    def test_only_pyside6_is_counted_not_other_qt_libraries(self):
+        self.create_zip([
+            ('pyside6_real.py', 'from PySide6.QtWidgets import QWidget\n'),
+            ('PySide6_solo_nombre.py', 'from PyQt6.QtWidgets import QWidget\n'),
+            ('otras.py', 'import PyQt5\nimport PySide2\nimport PySide60\n'),
+            ('parecidas.py', 'import PySide6_extra\nimport MyPySide6\n'),
+        ])
+        output = self.run_ok()
+        self.assertIn('Archivos .py analizados: 4\n', output)
+        self.assertIn('Archivos con menciones de PySide6: 1\n', output)
+        self.assertIn('Archivos con importaciones de PySide6 detectadas: 1\n', output)
+        self.assertEqual(output.count('Contiene PySide6: sí'), 1)
+        self.assertEqual(output.count('Contiene PySide6: no'), 3)
 
     def test_equal_filenames_keep_relative_paths(self):
-        self.create_zip([('uno/a.py', 'import PyQt6\n'), ('dos/a.py', 'print(1)\n')])
+        self.create_zip([('uno/a.py', 'import PySide6\n'), ('dos/a.py', 'print(1)\n')])
         output = self.run_ok()
-        self.assertEqual((self.dest / 'py/uno/a.py').read_text(), 'import PyQt6\n')
+        self.assertEqual((self.dest / 'py/uno/a.py').read_text(), 'import PySide6\n')
         self.assertEqual((self.dest / 'py/dos/a.py').read_text(), 'print(1)\n')
         self.assertIn('Archivos .py analizados: 2\n', output)
 
@@ -181,7 +195,7 @@ class ScriptTests(unittest.TestCase):
         self.assertFalse(self.dest.exists())
 
     def test_relative_paths_starting_with_dash_and_uppercase_zip(self):
-        self.create_zip([('-codigo.PY', '# pyqt5\n')])
+        self.create_zip([('-codigo.PY', '# pyside6\n')])
         archive = self.root / '-entrada.ZIP'
         self.archive.rename(archive)
         result = self.run_script('-entrada.ZIP', '-salida')
@@ -189,7 +203,7 @@ class ScriptTests(unittest.TestCase):
         self.assertTrue((self.root / '-salida/py/-codigo.PY').is_file())
 
     def test_grep_error_is_not_reported_as_no_match(self):
-        self.create_zip([('main.py', 'import PyQt6\n')])
+        self.create_zip([('main.py', 'import PySide6\n')])
         fakebin = self.root / 'bin'
         fakebin.mkdir()
         wrapper = fakebin / 'grep'

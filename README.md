@@ -1,7 +1,7 @@
 # SemanaTec_2
 Repositorio creado en semana tec primer semestre bloque 2, El arte de la programación
 
-## Clasificación de archivos y auditoría de PyQt
+## Clasificación de archivos y auditoría de PySide6
 
 Práctica de Bash para descomprimir un ZIP, organizar sus archivos por extensión y auditar los archivos Python.
 
