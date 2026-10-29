@@ -2,10 +2,10 @@ VERIFICACIÓN INDEPENDIENTE: CORRECTA
 ZIP original sin modificaciones; SHA-256: 714a4c22b426b474694234f84fae9c1ab44342a9ff9659f3449a2c96ec9195c3
 198 archivos copiados y comparados byte por byte: 198 correctos
 Archivos de contenido: 98; metadatos macOS: 100
-Python analizados: 60; archivos con menciones de PyQt: 2; con imports: 1
-Informe: 60 rutas, 2 positivos y 58 negativos
-Script ejecutable, documentación y prompts presentes
-No se creó repositorio Git en el proyecto
+Python analizados: 60; archivos con menciones de PySide6: 28; con imports: 28
+Informe: 60 rutas, 28 positivos y 32 negativos; líneas coincidentes verificadas
+Script ejecutable; solo se busca PySide6, no PyQt ni otras versiones de PySide
+Las 16 pruebas automatizadas pasan, incluida la regresión de la librería buscada
 
 Archivos por categoría:
   csv: 6

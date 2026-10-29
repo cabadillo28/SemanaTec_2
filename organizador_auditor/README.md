@@ -1,10 +1,10 @@
-# Clasificación de archivos y auditoría de PyQt
+# Clasificación de archivos y auditoría de PySide6
 
-Práctica en Bash: descomprimir un ZIP, ordenar su contenido por extensión y revisar los archivos Python buscando **PyQt**, en lugar del ejemplo `cv2` del enunciado.
+Práctica en Bash: descomprimir un ZIP, ordenar su contenido por extensión y revisar los archivos Python buscando **PySide6**, en lugar del ejemplo `cv2` del enunciado.
 
 ## Ejecutar
 
-Requisitos: Linux, Bash 4+, `unzip` de Info-ZIP (incluida su opción `-^`), `find`, `grep`, `mkdir`, `mktemp`, `cp`, `rm` y `sort`. No hay que instalar PyQt ni ejecutar los programas Python del ZIP.
+Requisitos: Linux, Bash 4+, `unzip` de Info-ZIP (incluida su opción `-^`), `find`, `grep`, `mkdir`, `mktemp`, `cp`, `rm` y `sort`. No hay que instalar PySide6 ni ejecutar los programas Python del ZIP.
 
 Desde la raíz del repositorio:
 
@@ -35,7 +35,7 @@ set -o pipefail
 3. Descomprime con `unzip` en un temporal creado con `mktemp -d`; `trap` lo elimina al salir.
 4. Usa `find -print0` para copiar los archivos a carpetas por su última extensión, normalizada a minúsculas. Conserva la ruta relativa para evitar colisiones.
 5. Separa `__MACOSX`, `.DS_Store` y nombres `._*` bajo `metadatos_macos/`, sin contarlos como Python real.
-6. Revisa solo `py/` con `grep -n -i -E`. Por cada archivo indica si hay PyQt y muestra las líneas exactas y su número. También distingue las líneas de importación detectadas.
+6. Revisa solo `py/` con `grep -n -i -E`. Por cada archivo indica si hay PySide6 y muestra las líneas exactas y su número. También distingue las líneas de importación detectadas.
 7. Imprime el resumen contando archivos, no coincidencias. No modifica el ZIP original ni sobrescribe resultados anteriores.
 
 Ejemplo de organización:
@@ -60,18 +60,21 @@ Entrada: `~/Downloads/proyecto_analisis.zip`.
 | Archivos de contenido organizados | 98 |
 | Metadatos macOS separados | 100 |
 | Archivos Python analizados | 60 |
-| Archivos con menciones de PyQt | 2 |
-| Archivos con líneas de importación de PyQt detectadas | 1 |
+| Archivos con menciones de PySide6 | 28 |
+| Archivos con líneas de importación de PySide6 detectadas | 28 |
 
-- `QT_change_font.py`: importa `PyQt6` en las líneas **1, 2 y 3**.
-- `QT_interface_example.py`: menciona `PyQt` en un comentario de licencia en la línea **10**; no se cuenta como importación de PyQt.
-- **PySide6 es distinto de PyQt** y no se cuenta como tal. El nombre del archivo tampoco basta para identificar una librería: se revisa su contenido.
+- `QT_ex0.py`: importa `PySide6` en las líneas **2, 3 y 5**.
+- `QT_interface_example.py`: importa `PySide6` en las líneas **45 y 51**; la línea **46** es una importación comentada y solo se cuenta como mención.
+- `PyQT_button_window.py`: aunque su nombre dice PyQT, importa `PySide6` en la línea **2**, por lo que sí se cuenta.
+- `QT_change_font.py`: importa `PyQt6`, una librería distinta, por lo que no se cuenta. Tampoco se cuentan `PySide2` ni nombres parecidos como `PySide60`; se revisa el contenido, no el nombre del archivo.
 
 Extensiones encontradas: `csv`, `gif`, `jpeg`, `jpg`, `mp3`, `pdf`, `png`, `py`, `svg`, `ttf`, `wav` y `webp`, además de un archivo sin extensión.
 
 Informe completo: [`evidencias/informe_auditoria.txt`](evidencias/informe_auditoria.txt).
 
 ## Prompts cortos
+
+Los dos primeros prompts se conservan literalmente como historial: nombraban PyQt por una confusión inicial. La tercera instrucción corrige el objetivo a **PySide6**, que es la librería buscada en la versión actual.
 
 Primera generación, enviada a un agente de IA en esta sesión ([texto exacto](prompts/01_generacion.txt)):
 
@@ -83,6 +86,12 @@ Instrucción de ajuste aplicada por el agente principal durante la revisión ([t
 
 La primera versión usaba Python para extraer el ZIP; se reemplazó por `unzip` para cumplir el enunciado. También se corrigió la salida por archivo y la distinción entre menciones e importaciones. No se usó una segunda conversación externa para estos ajustes.
 
+Corrección posterior del usuario ([texto exacto](prompts/03_correccion_pyside6.txt)):
+
+> it wasnt pyqt its pyside6 please fix it push commit etc
+
+Se corrigieron los patrones y mensajes a PySide6, se añadió una prueba para excluir PyQt/PySide2 y nombres similares, y se repitió la auditoría del ZIP. Los resultados anteriores de 2 menciones de PyQt y 1 importación ya no describen la búsqueda actual: ahora se detectan **28 archivos con PySide6**.
+
 ## Pruebas
 
 Python 3 se usa **solo para las pruebas**, que crean ZIP sintéticos. No es una dependencia de `script.sh`.
@@ -92,7 +101,7 @@ bash -n script.sh
 PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s tests -v
 ```
 
-Las 15 pruebas cubren argumentos, ZIP inválido o corrupto, rutas con espacios, extensiones en mayúsculas, nombres especiales, metadatos Mac, colisiones, destinos existentes, limpieza de temporales, errores de `grep`, PySide, comentarios, imports y ausencia de Python.
+Las 16 pruebas cubren argumentos, ZIP inválido o corrupto, rutas con espacios, extensiones en mayúsculas, nombres especiales, metadatos Mac, colisiones, destinos existentes, limpieza de temporales, errores de `grep`, comentarios, imports y ausencia de Python. Incluyen una regresión que exige detectar solo PySide6, excluyendo PyQt, PySide2, PySide60 y nombres similares, aunque el nombre del archivo sugiera otra librería.
 
 Evidencias: [`pruebas.txt`](evidencias/pruebas.txt) y [`verificacion.txt`](evidencias/verificacion.txt).
 

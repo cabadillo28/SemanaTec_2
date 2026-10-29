@@ -1,0 +1,1 @@
+it wasnt pyqt its pyside6 please fix it push commit etc
