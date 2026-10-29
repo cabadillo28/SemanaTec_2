@@ -1,0 +1,1 @@
+Haz un script de Bash que reciba un ZIP y una carpeta destino, valide los datos, descomprima y ordene por extensión. Busca PyQt en los .py con grep -n y muestra un resumen. Separa los metadatos de Mac, no sobrescribas archivos y no hagas nada de Git.

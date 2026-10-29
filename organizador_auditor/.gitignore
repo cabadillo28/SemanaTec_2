@@ -1,0 +1,7 @@
+# Datos descargados o generados: no publicar ejemplos originales con credenciales.
+resultados/
+resultados_nueva/
+otra_salida/
+*.zip
+__pycache__/
+*.pyc

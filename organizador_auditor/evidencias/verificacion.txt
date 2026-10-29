@@ -1,0 +1,24 @@
+VERIFICACIÓN INDEPENDIENTE: CORRECTA
+ZIP original sin modificaciones; SHA-256: 714a4c22b426b474694234f84fae9c1ab44342a9ff9659f3449a2c96ec9195c3
+198 archivos copiados y comparados byte por byte: 198 correctos
+Archivos de contenido: 98; metadatos macOS: 100
+Python analizados: 60; archivos con menciones de PyQt: 2; con imports: 1
+Informe: 60 rutas, 2 positivos y 58 negativos
+Script ejecutable, documentación y prompts presentes
+No se creó repositorio Git en el proyecto
+
+Archivos por categoría:
+  csv: 6
+  gif: 1
+  jpeg: 1
+  jpg: 7
+  metadatos_macos: 100
+  mp3: 1
+  pdf: 2
+  png: 14
+  py: 60
+  sin_extension: 1
+  svg: 1
+  ttf: 1
+  wav: 1
+  webp: 2

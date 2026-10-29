@@ -1,0 +1,259 @@
+
+AUDITORÍA DE PYQT
+
+Archivo: /home/xn6/semana_tec/organizador_auditor/resultados/py/proyecto_analisis/ADT_library.py
+Contiene PyQt: no
+No se detectaron importaciones de PyQt.
+
+Archivo: /home/xn6/semana_tec/organizador_auditor/resultados/py/proyecto_analisis/Arrays.py
+Contiene PyQt: no
+No se detectaron importaciones de PyQt.
+
+Archivo: /home/xn6/semana_tec/organizador_auditor/resultados/py/proyecto_analisis/Class.py
+Contiene PyQt: no
+No se detectaron importaciones de PyQt.
+
+Archivo: /home/xn6/semana_tec/organizador_auditor/resultados/py/proyecto_analisis/Class_inher_example.py
+Contiene PyQt: no
+No se detectaron importaciones de PyQt.
+
+Archivo: /home/xn6/semana_tec/organizador_auditor/resultados/py/proyecto_analisis/Codigo_instrucciones.py
+Contiene PyQt: no
+No se detectaron importaciones de PyQt.
+
+Archivo: /home/xn6/semana_tec/organizador_auditor/resultados/py/proyecto_analisis/Exercise_exam.py
+Contiene PyQt: no
+No se detectaron importaciones de PyQt.
+
+Archivo: /home/xn6/semana_tec/organizador_auditor/resultados/py/proyecto_analisis/Joshua_background.py
+Contiene PyQt: no
+No se detectaron importaciones de PyQt.
+
+Archivo: /home/xn6/semana_tec/organizador_auditor/resultados/py/proyecto_analisis/List_check_rep.py
+Contiene PyQt: no
+No se detectaron importaciones de PyQt.
+
+Archivo: /home/xn6/semana_tec/organizador_auditor/resultados/py/proyecto_analisis/Multiple_windows.py
+Contiene PyQt: no
+No se detectaron importaciones de PyQt.
+
+Archivo: /home/xn6/semana_tec/organizador_auditor/resultados/py/proyecto_analisis/Priority_queue_TRIAGE.py
+Contiene PyQt: no
+No se detectaron importaciones de PyQt.
+
+Archivo: /home/xn6/semana_tec/organizador_auditor/resultados/py/proyecto_analisis/PyQT_button_window.py
+Contiene PyQt: no
+No se detectaron importaciones de PyQt.
+
+Archivo: /home/xn6/semana_tec/organizador_auditor/resultados/py/proyecto_analisis/QT_Ahorcado_2.py
+Contiene PyQt: no
+No se detectaron importaciones de PyQt.
+
+Archivo: /home/xn6/semana_tec/organizador_auditor/resultados/py/proyecto_analisis/QT_Background.py
+Contiene PyQt: no
+No se detectaron importaciones de PyQt.
+
+Archivo: /home/xn6/semana_tec/organizador_auditor/resultados/py/proyecto_analisis/QT_Background_2.py
+Contiene PyQt: no
+No se detectaron importaciones de PyQt.
+
+Archivo: /home/xn6/semana_tec/organizador_auditor/resultados/py/proyecto_analisis/QT_GIF.py
+Contiene PyQt: no
+No se detectaron importaciones de PyQt.
+
+Archivo: /home/xn6/semana_tec/organizador_auditor/resultados/py/proyecto_analisis/QT_MultiMenu.py
+Contiene PyQt: no
+No se detectaron importaciones de PyQt.
+
+Archivo: /home/xn6/semana_tec/organizador_auditor/resultados/py/proyecto_analisis/QT_Sound.py
+Contiene PyQt: no
+No se detectaron importaciones de PyQt.
+
+Archivo: /home/xn6/semana_tec/organizador_auditor/resultados/py/proyecto_analisis/QT_Two_Button.py
+Contiene PyQt: no
+No se detectaron importaciones de PyQt.
+
+Archivo: /home/xn6/semana_tec/organizador_auditor/resultados/py/proyecto_analisis/QT_Witdget_example.py
+Contiene PyQt: no
+No se detectaron importaciones de PyQt.
+
+Archivo: /home/xn6/semana_tec/organizador_auditor/resultados/py/proyecto_analisis/QT_ahorcado.py
+Contiene PyQt: no
+No se detectaron importaciones de PyQt.
+
+Archivo: /home/xn6/semana_tec/organizador_auditor/resultados/py/proyecto_analisis/QT_botonera.py
+Contiene PyQt: no
+No se detectaron importaciones de PyQt.
+
+Archivo: /home/xn6/semana_tec/organizador_auditor/resultados/py/proyecto_analisis/QT_capturista.py
+Contiene PyQt: no
+No se detectaron importaciones de PyQt.
+
+Archivo: /home/xn6/semana_tec/organizador_auditor/resultados/py/proyecto_analisis/QT_change_font.py
+Contiene PyQt: sí
+Coincidencias (línea:texto):
+1:from PyQt6.QtWidgets import *
+2:from PyQt6.QtGui import *
+3:from PyQt6.QtCore import *
+Líneas de importación de PyQt detectadas (heurística):
+1:from PyQt6.QtWidgets import *
+2:from PyQt6.QtGui import *
+3:from PyQt6.QtCore import *
+
+Archivo: /home/xn6/semana_tec/organizador_auditor/resultados/py/proyecto_analisis/QT_ex0.py
+Contiene PyQt: no
+No se detectaron importaciones de PyQt.
+
+Archivo: /home/xn6/semana_tec/organizador_auditor/resultados/py/proyecto_analisis/QT_image.py
+Contiene PyQt: no
+No se detectaron importaciones de PyQt.
+
+Archivo: /home/xn6/semana_tec/organizador_auditor/resultados/py/proyecto_analisis/QT_interface_example.py
+Contiene PyQt: sí
+Coincidencias (línea:texto):
+10:## This file is part of the examples of PyQt.
+No se detectaron importaciones de PyQt.
+
+Archivo: /home/xn6/semana_tec/organizador_auditor/resultados/py/proyecto_analisis/QT_menu.py
+Contiene PyQt: no
+No se detectaron importaciones de PyQt.
+
+Archivo: /home/xn6/semana_tec/organizador_auditor/resultados/py/proyecto_analisis/QT_mouse.py
+Contiene PyQt: no
+No se detectaron importaciones de PyQt.
+
+Archivo: /home/xn6/semana_tec/organizador_auditor/resultados/py/proyecto_analisis/QT_proyecto-LAPTOP-C0EC3SCF.py
+Contiene PyQt: no
+No se detectaron importaciones de PyQt.
+
+Archivo: /home/xn6/semana_tec/organizador_auditor/resultados/py/proyecto_analisis/QT_proyecto.py
+Contiene PyQt: no
+No se detectaron importaciones de PyQt.
+
+Archivo: /home/xn6/semana_tec/organizador_auditor/resultados/py/proyecto_analisis/QT_sockets.py
+Contiene PyQt: no
+No se detectaron importaciones de PyQt.
+
+Archivo: /home/xn6/semana_tec/organizador_auditor/resultados/py/proyecto_analisis/QT_tabs.py
+Contiene PyQt: no
+No se detectaron importaciones de PyQt.
+
+Archivo: /home/xn6/semana_tec/organizador_auditor/resultados/py/proyecto_analisis/QT_tabs_action.py
+Contiene PyQt: no
+No se detectaron importaciones de PyQt.
+
+Archivo: /home/xn6/semana_tec/organizador_auditor/resultados/py/proyecto_analisis/Queue_refrigerados.py
+Contiene PyQt: no
+No se detectaron importaciones de PyQt.
+
+Archivo: /home/xn6/semana_tec/organizador_auditor/resultados/py/proyecto_analisis/Send_email.py
+Contiene PyQt: no
+No se detectaron importaciones de PyQt.
+
+Archivo: /home/xn6/semana_tec/organizador_auditor/resultados/py/proyecto_analisis/Turtle_laberinto.py
+Contiene PyQt: no
+No se detectaron importaciones de PyQt.
+
+Archivo: /home/xn6/semana_tec/organizador_auditor/resultados/py/proyecto_analisis/adivina_quien.py
+Contiene PyQt: no
+No se detectaron importaciones de PyQt.
+
+Archivo: /home/xn6/semana_tec/organizador_auditor/resultados/py/proyecto_analisis/ahorcado_array.py
+Contiene PyQt: no
+No se detectaron importaciones de PyQt.
+
+Archivo: /home/xn6/semana_tec/organizador_auditor/resultados/py/proyecto_analisis/array_2d.py
+Contiene PyQt: no
+No se detectaron importaciones de PyQt.
+
+Archivo: /home/xn6/semana_tec/organizador_auditor/resultados/py/proyecto_analisis/array_example_2.py
+Contiene PyQt: no
+No se detectaron importaciones de PyQt.
+
+Archivo: /home/xn6/semana_tec/organizador_auditor/resultados/py/proyecto_analisis/battleship_template.py
+Contiene PyQt: no
+No se detectaron importaciones de PyQt.
+
+Archivo: /home/xn6/semana_tec/organizador_auditor/resultados/py/proyecto_analisis/codigo_andrea.py
+Contiene PyQt: no
+No se detectaron importaciones de PyQt.
+
+Archivo: /home/xn6/semana_tec/organizador_auditor/resultados/py/proyecto_analisis/controls.py
+Contiene PyQt: no
+No se detectaron importaciones de PyQt.
+
+Archivo: /home/xn6/semana_tec/organizador_auditor/resultados/py/proyecto_analisis/create_PDF.py
+Contiene PyQt: no
+No se detectaron importaciones de PyQt.
+
+Archivo: /home/xn6/semana_tec/organizador_auditor/resultados/py/proyecto_analisis/cuadro_magico.py
+Contiene PyQt: no
+No se detectaron importaciones de PyQt.
+
+Archivo: /home/xn6/semana_tec/organizador_auditor/resultados/py/proyecto_analisis/data_map.py
+Contiene PyQt: no
+No se detectaron importaciones de PyQt.
+
+Archivo: /home/xn6/semana_tec/organizador_auditor/resultados/py/proyecto_analisis/data_visualization.py
+Contiene PyQt: no
+No se detectaron importaciones de PyQt.
+
+Archivo: /home/xn6/semana_tec/organizador_auditor/resultados/py/proyecto_analisis/laberinto.py
+Contiene PyQt: no
+No se detectaron importaciones de PyQt.
+
+Archivo: /home/xn6/semana_tec/organizador_auditor/resultados/py/proyecto_analisis/number_inverse.py
+Contiene PyQt: no
+No se detectaron importaciones de PyQt.
+
+Archivo: /home/xn6/semana_tec/organizador_auditor/resultados/py/proyecto_analisis/pandas_prueba.py
+Contiene PyQt: no
+No se detectaron importaciones de PyQt.
+
+Archivo: /home/xn6/semana_tec/organizador_auditor/resultados/py/proyecto_analisis/pandas_visualization.py
+Contiene PyQt: no
+No se detectaron importaciones de PyQt.
+
+Archivo: /home/xn6/semana_tec/organizador_auditor/resultados/py/proyecto_analisis/queue_priority+.py
+Contiene PyQt: no
+No se detectaron importaciones de PyQt.
+
+Archivo: /home/xn6/semana_tec/organizador_auditor/resultados/py/proyecto_analisis/segundo_parcial.py
+Contiene PyQt: no
+No se detectaron importaciones de PyQt.
+
+Archivo: /home/xn6/semana_tec/organizador_auditor/resultados/py/proyecto_analisis/send_PDF_email.py
+Contiene PyQt: no
+No se detectaron importaciones de PyQt.
+
+Archivo: /home/xn6/semana_tec/organizador_auditor/resultados/py/proyecto_analisis/socket_client.py
+Contiene PyQt: no
+No se detectaron importaciones de PyQt.
+
+Archivo: /home/xn6/semana_tec/organizador_auditor/resultados/py/proyecto_analisis/socket_server.py
+Contiene PyQt: no
+No se detectaron importaciones de PyQt.
+
+Archivo: /home/xn6/semana_tec/organizador_auditor/resultados/py/proyecto_analisis/switch_python.py
+Contiene PyQt: no
+No se detectaron importaciones de PyQt.
+
+Archivo: /home/xn6/semana_tec/organizador_auditor/resultados/py/proyecto_analisis/tcpip.py
+Contiene PyQt: no
+No se detectaron importaciones de PyQt.
+
+Archivo: /home/xn6/semana_tec/organizador_auditor/resultados/py/proyecto_analisis/tic_tac_toe.py
+Contiene PyQt: no
+No se detectaron importaciones de PyQt.
+
+Archivo: /home/xn6/semana_tec/organizador_auditor/resultados/py/proyecto_analisis/tree_script.py
+Contiene PyQt: no
+No se detectaron importaciones de PyQt.
+
+RESUMEN FINAL
+Destino: /home/xn6/semana_tec/organizador_auditor/resultados
+Archivos de contenido organizados: 98
+Metadatos macOS separados: 100
+Archivos .py analizados: 60
+Archivos con menciones de PyQt: 2
+Archivos con importaciones de PyQt detectadas: 1
